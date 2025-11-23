@@ -1,0 +1,150 @@
+# ==========================
+# GLOBAL
+# ==========================
+
+# OS / Temp files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+*.tmp
+*.swp
+*.swo
+*.bak
+*.orig
+*~
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Node modules
+node_modules/
+pnpm-lock.yaml
+.yarn/
+
+# Environment / Secrets
+.env
+.env.*
+!.env.example
+secrets.json
+secret.*
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+.envrc
+
+# ==========================
+# BACKEND (.NET)
+# ==========================
+
+# Compiled binaries
+bin/
+obj/
+out/
+
+# Auto-generated files
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+*.userprefs
+*.vsconfig
+
+# Visual Studio
+.vs/
+
+# Rider / JetBrains
+.idea/
+
+# Build results
+*.dll
+*.exe
+*.pdb
+*.cache
+*.mdb
+
+# EF Core Migrations Snapshots (ignore designer & resx)
+*Migrations/*.Designer.cs
+*Migrations/*.resx
+
+# ASP.NET User secrets
+**/appsettings*.json
+# Keep only a template
+!**/appsettings.example.json
+
+# ==========================
+# FRONTEND (Nuxt 3)
+# ==========================
+
+# Nuxt build dirs
+.nuxt/
+.output/
+dist/
+.cache/
+.cache-nuxt/
+
+# Nitro output
+.server/
+.vercel/
+.netlify/
+
+# Lock files (optional)
+package-lock.json
+yarn.lock
+
+# Vue / Nuxt specific
+*.local
+*.nuxt
+*.sfc
+
+# ==========================
+# INFRA
+# ==========================
+
+# Docker
+docker-compose.override.yml
+docker-compose.local.yml
+*.pid
+
+# Terraform / IaC
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+
+# ==========================
+# EDITORS
+# ==========================
+
+# VS Code
+.vscode/
+.history/
+*.code-workspace
+
+# JetBrains
+.idea/
+
+# ==========================
+# MISC
+# ==========================
+
+# Coverage
+coverage/
+*.coverage
+*.coveragexml
+
+# Sass cache
+.sass-cache
+
+# Local DB cache (if SQLite used for dev)
+*.db
+*.sqlite
+*.sqlite3
