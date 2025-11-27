@@ -33,6 +33,8 @@ builder.Services.AddDbContext<BarbuDbContext>(options =>
 
 // Register Services
 builder.Services.AddScoped<IPlayersService, PlayersService>();
+builder.Services.AddScoped<IGamesService, GamesService>();
+builder.Services.AddScoped<IChampionshipsService, ChampionshipsService>();
 
 var app = builder.Build();
 
