@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet new:*)",
+      "Bash(dotnet sln:*)",
+      "Bash(dotnet add reference:*)",
+      "Bash(dotnet add:*)",
+      "Bash(dotnet build:*)",
+      "Bash(npx nuxi@latest init barbu-nuxt)",
+      "Bash(npm install:*)",
+      "Bash(npx tailwindcss init)",
+      "Bash(npm run build:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(dotnet ef:*)",
+      "Bash(dotnet tool install:*)",
+      "Bash(docker compose:*)",
+      "Bash(set ASPNETCORE_ENVIRONMENT=Production:*)",
+      "Bash(docker exec:*)",
+      "Bash(dotnet run:*)",
+      "Bash(dotnet remove package:*)",
+      "Bash(dotnet clean:*)",
+      "Bash(curl:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
