@@ -135,7 +135,13 @@ const successMessage = ref('')
 
 // Load players on mount
 onMounted(async () => {
-  await playersStore.fetchPlayers()
+  console.log('🔵 Page mounted, fetching players...')
+  try {
+    await playersStore.fetchPlayers()
+    console.log('✅ Players fetched:', playersStore.players)
+  } catch (error) {
+    console.error('❌ Error fetching players:', error)
+  }
 })
 
 const handleSubmit = async (data: CreatePlayer | UpdatePlayer) => {

@@ -21,7 +21,14 @@
       "Bash(dotnet run:*)",
       "Bash(dotnet remove package:*)",
       "Bash(dotnet clean:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(npm run dev:*)",
+      "Bash(cat:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(cmd //c taskkill //PID 57308 //F)",
+      "Bash(cmd //c \"taskkill //F //IM node.exe\")"
     ],
     "deny": [],
     "ask": []
