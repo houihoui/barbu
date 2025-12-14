@@ -28,7 +28,8 @@
       "Bash(findstr:*)",
       "Bash(taskkill:*)",
       "Bash(cmd //c taskkill //PID 57308 //F)",
-      "Bash(cmd //c \"taskkill //F //IM node.exe\")"
+      "Bash(cmd //c \"taskkill //F //IM node.exe\")",
+      "Bash(cmd //c taskkill //PID 35112 //F)"
     ],
     "deny": [],
     "ask": []

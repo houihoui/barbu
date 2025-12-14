@@ -122,6 +122,8 @@
 <script setup lang="ts">
 import type { Player, CreatePlayer, UpdatePlayer } from '../../types'
 import { usePlayersStore } from '../../stores/players'
+import PlayerCard from '../../components/PlayerCard.vue'
+import PlayerForm from '../../components/PlayerForm.vue'
 
 definePageMeta({
   title: 'Joueurs'
