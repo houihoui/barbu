@@ -45,6 +45,33 @@ public class GamesController : ControllerBase
     }
 
     /// <summary>
+    /// Récupère les détails complets d'une partie (avec toutes les donnes)
+    /// </summary>
+    [HttpGet("{id}/details")]
+    [ProducesResponseType(typeof(GameDetailsDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<GameDetailsDto>> GetGameDetails(Guid id)
+    {
+        var game = await _gamesService.GetGameDetailsAsync(id);
+
+        if (game == null)
+            return NotFound(new { message = $"Partie {id} introuvable" });
+
+        return Ok(game);
+    }
+
+    /// <summary>
+    /// Récupère uniquement les donnes d'une partie
+    /// </summary>
+    [HttpGet("{id}/deals")]
+    [ProducesResponseType(typeof(IEnumerable<DealDto>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<IEnumerable<DealDto>>> GetGameDeals(Guid id)
+    {
+        var deals = await _gamesService.GetGameDealsAsync(id);
+        return Ok(deals);
+    }
+
+    /// <summary>
     /// Crée une nouvelle partie
     /// </summary>
     [HttpPost]

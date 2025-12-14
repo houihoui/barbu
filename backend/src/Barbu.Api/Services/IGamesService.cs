@@ -9,6 +9,8 @@ public interface IGamesService
 {
     Task<IEnumerable<GameDto>> GetAllGamesAsync();
     Task<GameDto?> GetGameByIdAsync(Guid id);
+    Task<GameDetailsDto?> GetGameDetailsAsync(Guid id);
+    Task<IEnumerable<DealDto>> GetGameDealsAsync(Guid id);
     Task<GameDto> CreateGameAsync(CreateGameDto createGameDto);
     Task<bool> StartGameAsync(Guid id);
     Task<bool> CompleteGameAsync(Guid id);

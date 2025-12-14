@@ -182,6 +182,73 @@ public class GamesService : IGamesService
         return true;
     }
 
+    public async Task<GameDetailsDto?> GetGameDetailsAsync(Guid id)
+    {
+        var game = await _context.Games
+            .Include(g => g.GamePlayers)
+                .ThenInclude(gp => gp.Player)
+            .Include(g => g.Deals)
+                .ThenInclude(d => d.Declarer)
+                    .ThenInclude(gp => gp.Player)
+            .Include(g => g.Deals)
+                .ThenInclude(d => d.DealScores)
+                    .ThenInclude(ds => ds.GamePlayer)
+                        .ThenInclude(gp => gp.Player)
+            .Include(g => g.Deals)
+                .ThenInclude(d => d.Challenges)
+            .FirstOrDefaultAsync(g => g.Id == id);
+
+        if (game == null)
+            return null;
+
+        return new GameDetailsDto
+        {
+            Id = game.Id,
+            Name = game.Name,
+            PlayerCount = game.PlayerCount,
+            Status = game.Status,
+            CurrentDealNumber = game.CurrentDealNumber,
+            ChampionshipId = game.ChampionshipId,
+            CreatedAt = game.CreatedAt,
+            StartedAt = game.StartedAt,
+            CompletedAt = game.CompletedAt,
+            Players = game.GamePlayers
+                .OrderBy(gp => gp.Position)
+                .Select(gp => new GamePlayerDto
+                {
+                    Id = gp.Id,
+                    PlayerId = gp.PlayerId,
+                    PlayerName = gp.Player.Name,
+                    PlayerAvatar = gp.Player.Avatar,
+                    Position = gp.Position,
+                    TotalScore = gp.TotalScore,
+                    RemainingChallenges = gp.RemainingChallenges,
+                    RemainingSurcontres = gp.RemainingSurcontres
+                })
+                .ToList(),
+            Deals = game.Deals
+                .OrderBy(d => d.DealNumber)
+                .Select(MapDealToDto)
+                .ToList()
+        };
+    }
+
+    public async Task<IEnumerable<DealDto>> GetGameDealsAsync(Guid id)
+    {
+        var deals = await _context.Deals
+            .Include(d => d.Declarer)
+                .ThenInclude(gp => gp.Player)
+            .Include(d => d.DealScores)
+                .ThenInclude(ds => ds.GamePlayer)
+                    .ThenInclude(gp => gp.Player)
+            .Include(d => d.Challenges)
+            .Where(d => d.GameId == id)
+            .OrderBy(d => d.DealNumber)
+            .ToListAsync();
+
+        return deals.Select(MapDealToDto);
+    }
+
     private static GameDto MapToDto(Game game)
     {
         return new GameDto
@@ -209,6 +276,54 @@ public class GamesService : IGamesService
                     RemainingSurcontres = gp.RemainingSurcontres
                 })
                 .ToList()
+        };
+    }
+
+    private static DealDto MapDealToDto(Deal deal)
+    {
+        return new DealDto
+        {
+            Id = deal.Id,
+            GameId = deal.GameId,
+            DealNumber = deal.DealNumber,
+            DeclarerGamePlayerId = deal.DeclarerGamePlayerId,
+            DeclarerPlayerName = deal.Declarer.Player.Name,
+            ContractType = deal.ContractType,
+            IsCompleted = deal.IsCompleted,
+            StartedAt = deal.StartedAt,
+            CompletedAt = deal.CompletedAt,
+            Scores = deal.DealScores.Select(MapDealScoreToDto).ToList(),
+            Challenges = deal.Challenges.Select(MapChallengeToDto).ToList()
+        };
+    }
+
+    private static DealScoreDto MapDealScoreToDto(DealScore score)
+    {
+        return new DealScoreDto
+        {
+            Id = score.Id,
+            DealId = score.DealId,
+            GamePlayerId = score.GamePlayerId,
+            PlayerName = score.GamePlayer.Player.Name,
+            BaseScore = score.BaseScore,
+            FinalScore = score.FinalScore,
+            ScoreDetails = score.ScoreDetails
+        };
+    }
+
+    private static ChallengeDto MapChallengeToDto(Challenge challenge)
+    {
+        return new ChallengeDto
+        {
+            Id = challenge.Id,
+            DealId = challenge.DealId,
+            Type = challenge.Type,
+            ChallengerGamePlayerId = challenge.ChallengerGamePlayerId,
+            ChallengerPlayerName = challenge.Challenger.Player.Name,
+            ChallengedGamePlayerId = challenge.ChallengedGamePlayerId,
+            ChallengedPlayerName = challenge.Challenged.Player.Name,
+            ScoreDifference = challenge.ScoreDifference,
+            PointsTransferred = challenge.PointsTransferred
         };
     }
 }

@@ -17,6 +17,11 @@ export enum ContractType {
   Reussite = 7
 }
 
+export enum ChallengeType {
+  Contre = 1,
+  Surcontre = 2
+}
+
 // Players
 export interface Player {
   id: string
@@ -102,4 +107,45 @@ export interface CreateChampionship {
 export interface UpdateChampionship {
   name: string
   description?: string
+}
+
+// Deals
+export interface DealScore {
+  id: string
+  dealId: string
+  gamePlayerId: string
+  playerName: string
+  baseScore: number
+  finalScore: number
+  scoreDetails?: string
+}
+
+export interface Challenge {
+  id: string
+  dealId: string
+  type: ChallengeType
+  challengerGamePlayerId: string
+  challengerPlayerName: string
+  challengedGamePlayerId: string
+  challengedPlayerName: string
+  scoreDifference: number
+  pointsTransferred: number
+}
+
+export interface Deal {
+  id: string
+  gameId: string
+  dealNumber: number
+  declarerGamePlayerId: string
+  declarerPlayerName: string
+  contractType: ContractType
+  isCompleted: boolean
+  startedAt: string
+  completedAt?: string
+  scores: DealScore[]
+  challenges: Challenge[]
+}
+
+export interface GameDetails extends Game {
+  deals: Deal[]
 }
